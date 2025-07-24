@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Side Navigation Example</title>
+  <title>Portfolio with Sidebar Dropdown</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
-    /* Side navigation */
     .sidenav {
       height: 100%;
       width: 0;
@@ -18,15 +17,21 @@
       transition: 0.3s;
       padding-top: 60px;
     }
-    .sidenav a {
+    .sidenav a, .dropdown-btn {
       padding: 8px 8px 8px 32px;
       text-decoration: none;
       font-size: 18px;
       color: #fff;
       display: block;
       transition: 0.3s;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      outline: none;
+      width: 100%;
     }
-    .sidenav a:hover {
+    .sidenav a:hover, .dropdown-btn:hover {
       background-color: #575757;
     }
     .sidenav .closebtn {
@@ -36,12 +41,15 @@
       margin-left: 50px;
       padding: 10px 20px;
     }
-    /* Main content */
+    .dropdown-container {
+      display: none;
+      background-color: #444;
+      padding-left: 20px;
+    }
     #main {
       transition: margin-left 0.3s;
       padding: 20px;
     }
-    /* Open button */
     .openbtn {
       font-size: 20px;
       cursor: pointer;
@@ -62,15 +70,20 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#">Home</a>
     <a href="#">About</a>
-    <a href="#">Projects</a>
+    <button class="dropdown-btn">Projects ▼</button>
+    <div class="dropdown-container">
+      <a href="#">Web Development</a>
+      <a href="#">Mobile Apps</a>
+      <a href="#">Designs</a>
+    </div>
     <a href="#">Contact</a>
   </div>
 
   <!-- Main content -->
   <div id="main">
     <button class="openbtn" onclick="openNav()">☰ Open Menu</button>
-    <h2>Responsive Side Navigation Example</h2>
-    <p>Click on the hamburger menu to open the side navigation.</p>
+    <h2>Portfolio with Sidebar Dropdown</h2>
+    <p>Click the Projects button to see dropdown items.</p>
   </div>
 
   <!-- JavaScript -->
@@ -84,8 +97,21 @@
       document.getElementById("mySidenav").style.width = "0";
       document.getElementById("main").style.marginLeft= "0";
     }
+
+    /* Dropdown functionality */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    for (var i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
   </script>
 
 </body>
 </html>
-
